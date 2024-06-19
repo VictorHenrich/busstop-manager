@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto&display=swap" rel="stylesheet');
+
+:root {
+  --color-primary: #34c759;
+  --color-secondary: #333333;
+  --color-tertiary: #ffffff;
+  --font-titles: "Montserrat", sans-serif;
+  --font-paragraphs: "Open Sans", sans-serif;
+  --font-inputs: "Roboto", sans-serif;
+  --size-full: "100%";
+  --size-half: "50%";
+  --size-quarter: "25%";
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--color-tertiary);
+}
