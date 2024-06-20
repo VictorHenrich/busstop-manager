@@ -14,10 +14,13 @@ import AppForm from "@/components/form";
 import login from "./actions";
 import AppAlert, { AppAlertProps } from "@/components/alert";
 import { LoginActionResult, initialState } from "./states";
+import AppLoading from "@/components/loading";
 
 
 export default function LoginPage(){
-    const [state, formAction, pending] = useFormState<LoginActionResult, FormData>(login, initialState);
+    const [state, formAction ] = useFormState<LoginActionResult, FormData>(login, initialState);
+
+    const [openLoading, setOpenLoading] = React.useState<boolean>(false);
 
     const [alertState, setAlertState] = React.useState<AppAlertProps>({
         open: false,
@@ -27,10 +30,10 @@ export default function LoginPage(){
 
     React.useEffect(()=> {
         if(state.error)
-            handleAlertState({ open: true, message: state.message, status: "error" })
+            handleAlertState({ open: true, message: state.message, status: "error" });
 
+        setOpenLoading(false);
     }, [state]);
-
 
     function handleAlertState(props: Partial<AppAlertProps>): void{
         setAlertState({ ...alertState, ...props });
@@ -115,8 +118,9 @@ export default function LoginPage(){
                             <AppButton
                                 width="40%"
                                 type="submit"
+                                onClick={()=> setOpenLoading(true)}
                             >
-                                {!pending ? "Entrar" : "Acessando..."}
+                                Entrar
                             </AppButton>
                         </Stack>
                     </AppForm>
@@ -125,6 +129,10 @@ export default function LoginPage(){
             <AppAlert 
                 {...alertState}
                 onClose={()=> handleAlertState({ open: false, })}
+            />
+
+            <AppLoading 
+                open={openLoading}
             />
         </>
     )
