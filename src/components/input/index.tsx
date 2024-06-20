@@ -1,15 +1,12 @@
 import React from "react";
 import { 
     Input,
-    Icon,
     InputGroup,
     FormControl,
     FormLabel,
     InputRightElement,
     FormControlProps,
-    InputGroupProps,
-    InputProps, 
-    As
+    InputProps,
 } from "@chakra-ui/react";
 
 
