@@ -6,6 +6,7 @@
   --color-primary: #34c759;
   --color-secondary: #333333;
   --color-tertiary: #ffffff;
+  --color-black: #222222;
   --font-titles: "Montserrat", sans-serif;
   --font-paragraphs: "Open Sans", sans-serif;
   --font-inputs: "Roboto", sans-serif;
@@ -23,9 +24,8 @@
 }
 
 html, body {
-
-  max-width: 100vw;
-  max-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   overflow-x: hidden;
   background-color: var(--color-tertiary);
 }
