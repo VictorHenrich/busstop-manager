@@ -21,7 +21,7 @@ export default function AppAlert({
     React.useEffect(()=> {
         if(open)
             setTimeout(onClose, (seconds * 1000));
-    }, [open]);
+    }, [open, onClose, seconds]);
 
     return (
         <Slide

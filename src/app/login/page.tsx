@@ -28,16 +28,16 @@ export default function LoginPage(){
         status: "info"
     });
 
+    const handleAlertState = React.useCallback((props: Partial<AppAlertProps>)=> {
+        setAlertState({ ...alertState, ...props });
+    }, [alertState]);
+
     React.useEffect(()=> {
         if(state.error)
             handleAlertState({ open: true, message: state.message, status: "error" });
 
         setOpenLoading(false);
-    }, [state]);
-
-    function handleAlertState(props: Partial<AppAlertProps>): void{
-        setAlertState({ ...alertState, ...props });
-    }
+    }, [state, handleAlertState]);
 
     return (
         <>
