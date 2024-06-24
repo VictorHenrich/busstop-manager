@@ -2,6 +2,8 @@ import React from "react"
 
 
 
-export default function TravelPage(): React.ReactElement{
+function TravelPage(): React.ReactElement{
     return (<></>)
 }
+
+export default React.memo(TravelPage);

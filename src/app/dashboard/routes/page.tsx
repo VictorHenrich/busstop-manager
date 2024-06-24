@@ -1,8 +1,11 @@
+import React from "react";
 
 
 
-export default function RoutesPage(): React.ReactElement{
+function RoutesPage(): React.ReactElement{
     return (
         <></>
     )
 }
+
+export default React.memo(RoutesPage);

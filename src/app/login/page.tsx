@@ -17,7 +17,7 @@ import { LoginActionResult, initialState } from "./states";
 import AppLoading from "@/components/loading";
 
 
-export default function LoginPage(){
+function LoginPage(): React.ReactElement{
     const [state, formAction ] = useFormState<LoginActionResult, FormData>(login, initialState);
 
     const [openLoading, setOpenLoading] = React.useState<boolean>(false);
@@ -137,3 +137,5 @@ export default function LoginPage(){
         </>
     )
 }
+
+export default React.memo(LoginPage);

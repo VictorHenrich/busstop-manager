@@ -29,3 +29,24 @@ html, body {
   overflow-x: hidden;
   background-color: var(--color-tertiary);
 }
+
+table td, th{
+  min-width: 150px;
+  text-align: right;
+}
+
+table td{
+  color: var(--color-tertiary)
+}
+
+table th{
+  color: var(--color-primary)
+}
+
+tbody tr:nth-child(odd) {
+  background-color: var(--color-secondary);
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--color-black);
+}

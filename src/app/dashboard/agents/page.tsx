@@ -1,7 +1,11 @@
+import React from "react";
 
 
 
 
-export default function AgentsPage(): React.ReactElement{
+function AgentsPage(): React.ReactElement{
     return ( <></> )
 }
+
+
+export default React.memo(AgentsPage);

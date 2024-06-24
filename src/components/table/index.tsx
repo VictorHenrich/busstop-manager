@@ -40,20 +40,13 @@ export default function AppTable<T>({
     description
 }: AppTableProps<T>): React.ReactElement{
     return (
-        <Table 
-            variant="striped" 
-            colorScheme="primary"
-            width="full"
-            height="full"
-        >
-            <TableContainer
-                width="full"
-                height="full"
-            >
+        <TableContainer>
+            <Table variant="unstyled">
                 {description && (
                     <TableCaption>{description}</TableCaption>
                 )}
-                <Thead>
+                <Thead
+                >
                     <Tr>
                         {header.map((item, index) => (
                             <Th
@@ -94,7 +87,7 @@ export default function AppTable<T>({
                         ))}
                     </Tr>
                 </Tfoot>
-            </TableContainer>
-        </Table>
+            </Table>
+        </TableContainer>
     )
 }
