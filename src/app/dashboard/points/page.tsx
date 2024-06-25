@@ -53,6 +53,7 @@ function PointsPage(): React.ReactElement{
             { value: (
                 <AppMenuList 
                     items={[
+                        {description: "Visualizar no Mapa", id: "update"},
                         {description: "Alterar", id: "update"},
                         {description: "Excluir", id: "delete"},
                     ]}
@@ -81,27 +82,47 @@ function PointsPage(): React.ReactElement{
             <AppForm>
                 <Wrap 
                     spacing={5} 
-                    justify="start" 
+                    justify="center"
                     align="end"
                 >
                     <WrapItem>
-                        <AppInput type="text" label="UF" minWidth={150}/>
+                        <AppInput 
+                            type="text" 
+                            label="UF" 
+                            width={150}
+                        />
                     </WrapItem>
                     <WrapItem>
-                        <AppInput type="text" label="Cidade" minWidth={400}/>
+                        <AppInput 
+                            type="text" 
+                            label="Cidade" 
+                            minWidth={400}
+                        />
                     </WrapItem>
                     <WrapItem>
-                        <AppInput type="text" label="Bairro" minWidth={400}/>
+                        <AppInput 
+                            type="text" 
+                            label="Bairro" 
+                            minWidth={400}
+                        />
                     </WrapItem>
                     <WrapItem>
-                        <AppInput type="text" label="Rua" minWidth={400}/>
+                        <AppInput 
+                            type="text" 
+                            label="Rua" 
+                            minWidth={400}
+                        />
                     </WrapItem>
                     <WrapItem>
-                        <AppInput type="text" label="Numero" minWidth={150}/>
+                        <AppInput 
+                            type="text" 
+                            label="Numero" 
+                            width={150}
+                        />
                     </WrapItem>
                     <WrapItem>
                         <AppButton  
-                            minWidth={100}
+                            minWidth={150}
                             rightIcon={<FaSearch />}
                         >
                             Pesquisar
@@ -109,8 +130,9 @@ function PointsPage(): React.ReactElement{
                     </WrapItem>
                     <WrapItem>
                         <AppButton 
-                            minWidth={100}
+                            minWidth={150}
                             rightIcon={<MdAddCircle />}
+                            padding={5}
                         >
                             Cadastrar Novo
                         </AppButton>

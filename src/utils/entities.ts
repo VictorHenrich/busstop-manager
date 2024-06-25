@@ -16,7 +16,7 @@ export interface RouteEntity{
     description: string,
     openingTime: Date,
     closingTime: Date,
-    ticketPrice: Date
+    ticketPrice: number
 }
 
 
