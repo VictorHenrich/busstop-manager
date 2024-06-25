@@ -43,21 +43,21 @@ export default function DashboardLayout({ children }: React.PropsWithChildren): 
                 <Box
                     width="full"
                     height="full"
+                    padding={10}
                     backgroundColor="secondary"
                     borderRadius={10}
-                    position="relative"
+                    overflowY="auto"
                 >
-                    <AppIconButton
-                        aria-label="menu"
-                        width={50}
-                        height={50}
-                        borderRadius={10}
-                        as={TiThMenu}
-                        position="absolute"
-                        top={10}
-                        left={10}
-                        onClick={()=> setOpenMenu(true)}
-                    />
+                    <Box width="full" marginBottom={10}>
+                        <AppIconButton
+                            aria-label="menu"
+                            width={50}
+                            height={50}
+                            borderRadius={10}
+                            as={TiThMenu}
+                            onClick={()=> setOpenMenu(true)}
+                        />
+                    </Box>
                     { children }
                 </Box>
             </Center>

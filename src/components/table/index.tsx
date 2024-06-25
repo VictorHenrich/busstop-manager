@@ -17,11 +17,11 @@ import {
 export type AppTableItemValue = string | number | React.ReactElement;
 
 
-export interface AppTableItemProps extends TableCellProps{
+export interface AppTableItemProps extends Partial<TableCellProps>{
     value: AppTableItemValue
 }
 
-export interface AppTableBodyItemProps<T> extends TableRowProps{
+export interface AppTableBodyItemProps<T> extends Partial<TableRowProps>{
     items: AppTableItemProps[],
     data: T
 }
@@ -45,12 +45,12 @@ export default function AppTable<T>({
                 {description && (
                     <TableCaption>{description}</TableCaption>
                 )}
-                <Thead
-                >
+                <Thead>
                     <Tr>
                         {header.map((item, index) => (
                             <Th
                                 key={index}
+                                align="left"
                                 {...item}
                             >
                                 {item.value}
@@ -67,6 +67,7 @@ export default function AppTable<T>({
                             {row.items.map((item, itemIndex) => (
                                <Td
                                     key={itemIndex}
+                                    align="left"
                                     {...item}
                                >
                                     {item.value}
@@ -80,6 +81,7 @@ export default function AppTable<T>({
                         {footer.map((item, index) => (
                             <Td
                                 key={index}
+                                align="left"
                                 {...item}
                             >
                                 {item.value}

@@ -1,11 +1,16 @@
 'use client'
 
 import React from "react";
+import { FaSearch } from "react-icons/fa";
+import { MdAddCircle } from "react-icons/md";
 import AppTable, { AppTableBodyItemProps, AppTableItemProps } from "@/components/table";
 import { PointEntity } from "@/utils/entities";
-import { Center } from "@chakra-ui/react";
+import { Stack, Wrap, WrapItem } from "@chakra-ui/react";
 import { mockPoints } from "./mock";
 import AppMenuList from "@/components/menuList";
+import AppForm from "@/components/form";
+import AppInput from "@/components/input";
+import AppButton from "@/components/button";
 
 
 function PointsPage(): React.ReactElement{
@@ -13,7 +18,7 @@ function PointsPage(): React.ReactElement{
 
     const header: AppTableItemProps[] = [
         {
-            value: "Estado (UF)"
+            value: "Estado (UF)",
         },
         {
             value: "Cidade"
@@ -28,10 +33,12 @@ function PointsPage(): React.ReactElement{
             value: "Numero"
         },
         {
-            value: "Coordenadas"
+            value: "Coordenadas",
+            align: "center"
         },
         {
-            value: "Ações"
+            value: "Ações",
+            align: "center"
         }
     ]
 
@@ -42,7 +49,7 @@ function PointsPage(): React.ReactElement{
             { value: point.addressNeighborhood },
             { value: point.addressStreet },
             { value: point.addressNumber },
-            { value: `(${point.latitude}, ${point.longitude})`},
+            { value: `(${point.latitude}, ${point.longitude})`, align: "center"},
             { value: (
                 <AppMenuList 
                     items={[
@@ -50,7 +57,9 @@ function PointsPage(): React.ReactElement{
                         {description: "Excluir", id: "delete"},
                     ]}
                 />
-            )}
+            ),
+            align: "center"
+            }
         ]
     }
 
@@ -62,15 +71,57 @@ function PointsPage(): React.ReactElement{
     }, []);
 
     return (
-        <Center
+        <Stack
             width="full"
             height="full"
+            direction="column"
+            align="center"
+            spacing={10}
         >
+            <AppForm>
+                <Wrap 
+                    spacing={5} 
+                    justify="start" 
+                    align="end"
+                >
+                    <WrapItem>
+                        <AppInput type="text" label="UF" minWidth={150}/>
+                    </WrapItem>
+                    <WrapItem>
+                        <AppInput type="text" label="Cidade" minWidth={400}/>
+                    </WrapItem>
+                    <WrapItem>
+                        <AppInput type="text" label="Bairro" minWidth={400}/>
+                    </WrapItem>
+                    <WrapItem>
+                        <AppInput type="text" label="Rua" minWidth={400}/>
+                    </WrapItem>
+                    <WrapItem>
+                        <AppInput type="text" label="Numero" minWidth={150}/>
+                    </WrapItem>
+                    <WrapItem>
+                        <AppButton  
+                            minWidth={100}
+                            rightIcon={<FaSearch />}
+                        >
+                            Pesquisar
+                        </AppButton>
+                    </WrapItem>
+                    <WrapItem>
+                        <AppButton 
+                            minWidth={100}
+                            rightIcon={<MdAddCircle />}
+                        >
+                            Cadastrar Novo
+                        </AppButton>
+                    </WrapItem>
+                </Wrap>
+            </AppForm>
             <AppTable
                 header={header}
                 body={body}
             />
-        </Center>
+        </Stack>
     )
 }
 
