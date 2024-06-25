@@ -21,5 +21,7 @@ export interface RouteEntity{
 
 
 export interface AgentEntity{
-
+    name: string,
+    email: string,
+    password?: string
 }
