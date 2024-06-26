@@ -11,9 +11,18 @@ import AppMenuList from "@/components/menuList";
 import AppForm from "@/components/form";
 import AppInput from "@/components/input";
 import AppButton from "@/components/button";
+import PointEditionModal from "./editionModal";
+import PointExclusionModal from "./exclusionModal";
+
 
 
 function PointsPage(): React.ReactElement{
+    const [openEditionModal, setOpenEditionModal] = React.useState<boolean>(false);
+
+    const [openExclusionModal, setOpenExclusionModal] = React.useState<boolean>(false);
+
+    const [ selectedPoint, setSelectedPoint ] = React.useState<PointEntity>();
+
     const [body, setBody] = React.useState<AppTableBodyItemProps<PointEntity>[]>([]);
 
     const header: AppTableItemProps[] = [
@@ -53,15 +62,52 @@ function PointsPage(): React.ReactElement{
             { value: (
                 <AppMenuList 
                     items={[
-                        {description: "Visualizar no Mapa", id: "update"},
-                        {description: "Alterar", id: "update"},
-                        {description: "Excluir", id: "delete"},
+                        {
+                            description: "Visualizar no Mapa", 
+                            id: "see",
+                            onClick: ()=> handleSeeMapOfPoint(point)
+                        },
+                        {
+                            description: "Alterar", 
+                            id: "update",
+                            onClick: ()=> handleUpdatePoint(point)
+                        },
+                        {
+                            description: "Excluir", 
+                            id: "delete",
+                            onClick: ()=> handleDeletePoint(point)
+                        },
                     ]}
                 />
             ),
             align: "center"
             }
         ]
+    }
+
+    function handleDeletePoint(point: PointEntity): void{
+        setOpenExclusionModal(true);
+        setSelectedPoint(point);
+    }
+
+    function handleUpdatePoint(point: PointEntity): void{
+        setOpenEditionModal(true);
+        setSelectedPoint(point);
+    }
+
+    function handleSeeMapOfPoint(point: PointEntity): void{
+
+    }
+
+    function handleCreatePoint(): void{
+        setOpenEditionModal(true);
+        setSelectedPoint(undefined);
+    }
+
+    function resetStates(): void{
+        setOpenEditionModal(false);
+        setOpenExclusionModal(false);
+        setSelectedPoint(undefined);
     }
 
     React.useEffect(()=> {
@@ -82,7 +128,7 @@ function PointsPage(): React.ReactElement{
             <AppForm>
                 <Wrap 
                     spacing={5} 
-                    justify="center"
+                    justify="flex-end"
                     align="end"
                 >
                     <WrapItem>
@@ -133,6 +179,7 @@ function PointsPage(): React.ReactElement{
                             minWidth={150}
                             rightIcon={<MdAddCircle />}
                             padding={5}
+                            onClick={handleCreatePoint}
                         >
                             Cadastrar Novo
                         </AppButton>
@@ -142,6 +189,16 @@ function PointsPage(): React.ReactElement{
             <AppTable
                 header={header}
                 body={body}
+            />
+            <PointEditionModal
+                open={openEditionModal}
+                selectedPoint={selectedPoint}
+                onClose={resetStates}
+            />
+            <PointExclusionModal 
+                open={openExclusionModal}
+                selectedPoint={selectedPoint}
+                onClose={resetStates}
             />
         </Stack>
     )

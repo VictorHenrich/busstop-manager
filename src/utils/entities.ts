@@ -1,7 +1,11 @@
 
 
+export interface ModelEntity{
+    uuid: string
+}
 
-export interface PointEntity{
+
+export interface PointEntity extends ModelEntity{
     addressState: string,
     addressCity: string,
     addressNeighborhood: string,
