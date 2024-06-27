@@ -1,7 +1,7 @@
 
 
 export interface ModelEntity{
-    uuid: string
+    uuid?: string
 }
 
 
@@ -24,8 +24,14 @@ export interface RouteEntity{
 }
 
 
-export interface AgentEntity{
+export interface AgentEntity extends ModelEntity{
     name: string,
     email: string,
     password?: string
+}
+
+
+export interface ActionProps{
+    finish: boolean,
+    errorMessage?: string
 }

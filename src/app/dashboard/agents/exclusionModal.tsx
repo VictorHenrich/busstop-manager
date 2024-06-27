@@ -6,26 +6,26 @@ import { Text } from "@chakra-ui/react";
 import AppModal, { AppModalProps } from "@/components/modal";
 import AppInput from "@/components/input";
 import AppForm from "@/components/form";
-import { PointEntity } from "@/utils/interfaces";
-import { deletePoint, PointActionProps } from "./actions";
+import { ActionProps, AgentEntity } from "@/utils/interfaces";
+import { deleteAgent } from "./actions";
 
 
 
-export interface PointExclusionModalProps extends Omit<AppModalProps, "children">{
-    selectedPoint?: Pick<PointEntity, "uuid">
+export interface AgentExclusionModalProps extends Omit<AppModalProps, "children">{
+    selectedAgent?: Pick<AgentEntity, "uuid">
 }
 
 
-export default function PointExclusionModal({
-    selectedPoint,
+export default function AgentExclusionModal({
+    selectedAgent,
     onClose,
     ...props
-}: PointExclusionModalProps){
-    const [formState, formAction] = useFormState<PointActionProps, FormData>(deletePoint, { finish: false });
+}: AgentExclusionModalProps){
+    const [formState, formAction] = useFormState<ActionProps, FormData>(deleteAgent, { finish: false });
 
-    const point: Pick<PointEntity, "uuid"> = React.useMemo(()=> {
-        return selectedPoint || { uuid: "" }
-    }, [selectedPoint]);
+    const agent: Pick<AgentEntity, "uuid"> = React.useMemo(()=> {
+        return selectedAgent || { uuid: "" }
+    }, [selectedAgent]);
 
     React.useEffect(()=> {
         if(formState.finish)
@@ -46,11 +46,11 @@ export default function PointExclusionModal({
             {...props}
         >
             <AppForm action={formAction}>
-                <Text color="tertiary">Você tem deseja realizar a exclusão deste Ponto?</Text>
+                <Text color="tertiary">Você tem deseja realizar a exclusão deste Agent?</Text>
                 <AppInput 
                     type="hidden"
-                    name="pointUuid"
-                    value={point.uuid}
+                    name="agentUuid"
+                    value={agent.uuid}
                 />
             </AppForm>
         </AppModal>

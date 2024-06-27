@@ -1,4 +1,4 @@
-import { AgentEntity } from "@/utils/entities";
+import { AgentEntity } from "@/utils/interfaces";
 
 
 
@@ -6,18 +6,22 @@ import { AgentEntity } from "@/utils/entities";
 export const mockAgents: AgentEntity[] = [
     {
         email: "victorhenrich993@gmail.com",
-        name: "Victor Henrich"
+        name: "Victor Henrich",
+        uuid: "1234"
     },
     {
         email: "victorhenrich993@gmail.com",
-        name: "Victor Henrich"
+        name: "Victor Henrich",
+        uuid: "1234"
     },
     {
         email: "victorhenrich993@gmail.com",
-        name: "Victor Henrich"
+        name: "Victor Henrich",
+        uuid: "1234"
     },
     {
         email: "victorhenrich993@gmail.com",
-        name: "Victor Henrich"
+        name: "Victor Henrich",
+        uuid: "1234"
     }
 ]

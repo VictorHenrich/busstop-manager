@@ -1,6 +1,6 @@
 'use server'
 
-import { PointEntity } from "@/utils/entities";
+import { PointEntity } from "@/utils/interfaces";
 
 export interface PointActionProps{
     finish: boolean,

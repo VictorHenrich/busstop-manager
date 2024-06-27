@@ -1,4 +1,4 @@
-import { PointEntity } from "@/utils/entities";
+import { PointEntity } from "@/utils/interfaces";
 
 
 
@@ -10,7 +10,8 @@ export const mockPoints: PointEntity[] = [
         addressStreet: "Rua Antonio Manuel dos Santos",
         addressNumber: "393",
         latitude: "-29.0009",
-        longitude: "-18.9000"
+        longitude: "-18.9000",
+        uuid: "1234"
     },
     {
         addressState: "SC",
@@ -19,7 +20,8 @@ export const mockPoints: PointEntity[] = [
         addressStreet: "Rua Antonio Manuel dos Santos",
         addressNumber: "393",
         latitude: "-29.0009",
-        longitude: "-18.9000"
+        longitude: "-18.9000",
+        uuid: "1234"
     },
     {
         addressState: "SC",
@@ -28,7 +30,8 @@ export const mockPoints: PointEntity[] = [
         addressStreet: "Rua Antonio Manuel dos Santos",
         addressNumber: "393",
         latitude: "-29.0009",
-        longitude: "-18.9000"
+        longitude: "-18.9000",
+        uuid: "1234"
     },
     {
         addressState: "SC",
@@ -37,6 +40,7 @@ export const mockPoints: PointEntity[] = [
         addressStreet: "Rua Antonio Manuel dos Santos",
         addressNumber: "393",
         latitude: "-29.0009",
-        longitude: "-18.9000"
+        longitude: "-18.9000",
+        uuid: "1234"
     }
 ]

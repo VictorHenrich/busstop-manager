@@ -1,4 +1,4 @@
-import { RouteEntity } from "@/utils/entities";
+import { RouteEntity } from "@/utils/interfaces";
 
 
 export const mockRoutes: RouteEntity[] = [

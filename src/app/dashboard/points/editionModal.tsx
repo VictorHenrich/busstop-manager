@@ -6,7 +6,7 @@ import { Stack } from "@chakra-ui/react";
 import AppModal, { AppModalProps } from "@/components/modal";
 import AppInput from "@/components/input";
 import AppForm from "@/components/form";
-import { PointEntity } from "@/utils/entities";
+import { PointEntity } from "@/utils/interfaces";
 import { createOrUpdatePoint, PointActionProps } from "./actions";
 
 
@@ -37,6 +37,10 @@ export default function PointEditionModal({
         finish: false
     });
 
+    const buttonConfirmDescription: string = React.useMemo<string>(()=> {
+        return pointState.uuid ? "Alterar" : "Cadastrar"
+    }, [pointState]);
+
     function handlePointState(data: Partial<PointEntity>): void{
         setPointState({ ...pointState, ...data });
     }
@@ -58,7 +62,7 @@ export default function PointEditionModal({
             onClose={onClose}
             title="Cadastro de pontos"
             buttonsProps={{
-                buttonConfirmDescription: "Cadastrar",
+                buttonConfirmDescription,
                 buttonConfirmProps: {
                     type: "submit"
                 }

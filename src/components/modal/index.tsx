@@ -115,7 +115,7 @@ export default function AppModal({
                             {buttonsProps.buttonConfirmDescription}
                         </AppButton>
                         <AppButton 
-                            backgroundColor="red"
+                            backgroundColor="gray"
                             color="tertiary"
                             _hover={{
                                 backgroundColor: "tertiary",
