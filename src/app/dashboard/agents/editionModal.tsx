@@ -61,23 +61,31 @@ export function AgentEditionModal({
                         type="text"
                         label="Nome"
                         name="name"
+                        variant="filled"
+                        color="secondary"
                         value={agentState.name}
                     />
                     <AppInput 
                         type="email"
                         label="Email"
                         name="email"
+                        variant="filled"
+                        color="secondary"
                         value={agentState.email}                            
                     />
                     <AppInput 
                         type="password"
                         label="Senha"
                         name="password"
+                        variant="filled"
+                        color="secondary"
                         value={agentState.password}                            
                     />
                     <AppInput 
                         type="hidden"
                         name="agentUuid"
+                        variant="filled"
+                        color="secondary"
                         value={agentState.uuid} 
                     />
                 </Stack>

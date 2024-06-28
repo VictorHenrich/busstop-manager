@@ -8,6 +8,11 @@ import AppInput from "@/components/input";
 import AppForm from "@/components/form";
 import { PointEntity } from "@/utils/interfaces";
 import { createOrUpdatePoint, PointActionProps } from "./actions";
+import { TbWorldSearch } from "react-icons/tb";
+import AppButton from "@/components/button";
+import AppTable, { AppTableBodyItemProps } from "@/components/table";
+import { pointsTableHeader, getItemsOfPoints } from "./shared";
+import { mockPoints } from "./mock";
 
 
 
@@ -33,6 +38,8 @@ export default function PointEditionModal({
 }: PointEditionModalProps): React.ReactElement{
     const [pointState, setPointState] = React.useState<PointEntity>(pointDefault);
 
+    const [body, setBody] = React.useState<AppTableBodyItemProps<PointEntity>[]>([]);
+
     const [formState, formAction ] = useFormState<PointActionProps, FormData>(createOrUpdatePoint, {
         finish: false
     });
@@ -40,10 +47,6 @@ export default function PointEditionModal({
     const buttonConfirmDescription: string = React.useMemo<string>(()=> {
         return pointState.uuid ? "Alterar" : "Cadastrar"
     }, [pointState]);
-
-    function handlePointState(data: Partial<PointEntity>): void{
-        setPointState({ ...pointState, ...data });
-    }
 
     React.useEffect(()=> {
         
@@ -55,6 +58,17 @@ export default function PointEditionModal({
             onClose();
 
     }, [formState, onClose]);
+
+    function handlePointState(data: Partial<PointEntity>): void{
+        setPointState({ ...pointState, ...data });
+    }
+
+    React.useEffect(()=> {
+        setBody(mockPoints.map(point => ({
+            data: point,
+            items: getItemsOfPoints(point)
+        })))
+    }, []);
 
     return (
         <AppModal
@@ -68,53 +82,54 @@ export default function PointEditionModal({
                 }
             }}
         >
-            <AppForm action={formAction}>
-                <Stack
-                    width="full"
-                    spacing={5}
-                >
-                    <AppInput 
-                        type="text"
-                        name="addressState"
-                        label="UF"
-                        value={pointState.addressState}
-                        onChange={({ target: { value }}) => handlePointState({addressState: value })}
-                    />
-                    <AppInput 
-                        type="text"
-                        name="addressCity"
-                        label="Cidade"
-                        value={pointState.addressCity}
-                        onChange={({ target: { value }}) => handlePointState({addressCity: value })}
-                    />
-                    <AppInput 
-                        type="text"
-                        name="addressNeighborhood"
-                        label="Bairro"
-                        value={pointState.addressNeighborhood}
-                        onChange={({ target: { value }}) => handlePointState({addressNeighborhood: value })}
-                    />
-                    <AppInput 
-                        type="text"
-                        name="addressStreet"
-                        label="Rua"
-                        value={pointState.addressStreet}
-                        onChange={({ target: { value }}) => handlePointState({addressStreet: value })}
-                    />
-                    <AppInput 
-                        type="text"
-                        name="addressNumber"
-                        label="Numero"
-                        value={pointState.addressNumber}
-                        onChange={({ target: { value }}) => handlePointState({addressNumber: value })}
-                    />
-                    <AppInput 
-                        type="hidden"
-                        name="pointUuid"
-                        value={pointState.uuid}
-                    />
-                </Stack>
-            </AppForm>
+            <Stack
+                width="full"
+                direction="column"
+                spacing={10}
+            >
+                <AppForm action={formAction}>
+                    <Stack
+                        width="full"
+                        spacing={5}
+                    >
+                        <AppInput
+                            variant="filled"
+                            type="text"
+                            name="addressCity"
+                            label="Endereço"
+                            color="secondary"
+                            _placeholder={{color: "secondary"}}
+                            placeholder="Digite o CEP, estado, rua ou outras informações..."
+                            value={pointState.addressCity}
+                            onChange={({ target: { value }}) => handlePointState({addressCity: value })}
+                        />
+                        <AppButton 
+                            width="auto"
+                            backgroundColor="blue.400"
+                            color="black"
+                            borderColor="blue.400"
+                            borderWidth={1}
+                            fontSize={18}
+                            rightIcon={<TbWorldSearch fontSize={25}/>}
+                            _hover={{
+                                backgroundColor: "black",
+                                color: "blue.400"
+                            }}
+                        >
+                            Localizar coordenadas
+                        </AppButton>
+                        <AppInput
+                            type="hidden"
+                            name="pointUuid"
+                            value={pointState.uuid}
+                        />
+                    </Stack>
+                </AppForm>
+                <AppTable
+                    body={body}
+                    header={pointsTableHeader}
+                />
+            </Stack>
         </AppModal>
     );
 }

@@ -38,7 +38,8 @@ export const themeDefault = extendTheme({
       input: 'var(--font-inputs)',
       button: 'var(--font-inputs)',
       link: 'var(--font-paragraphs)',
-      listItem: 'var(--font-inputs)'
+      listItem: 'var(--font-inputs)',
+      select: 'var(--font-inputs)'
     },
 
 });

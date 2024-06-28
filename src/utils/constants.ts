@@ -2,6 +2,7 @@ import { BsPersonFillGear } from "react-icons/bs";
 import { FaMapMarkerAlt, FaMapMarkedAlt  } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
 import { AppMenuItemProps } from "@/components/menu";
+import { AppSelectItemProps } from "@/components/select";
 
 
 
@@ -45,5 +46,116 @@ export const DASHBOARD_MENU_ITENS: AppMenuItemProps[] = [
         icon: FaMapMarkedAlt,
         id: "routes",
         path: "/dashboard/routes"
+    }
+]
+
+export const STATE_ITEMS: AppSelectItemProps[] = [
+    {
+        "description": "Acre - AC",
+        "value": "AC"
+    },
+    {
+        "description": "Alagoas - AL",
+        "value": "AL"
+    },
+    {
+        "description": "Amapá - AP",
+        "value": "AP"
+    },
+    {
+        "description": "Amazonas - AM",
+        "value": "AM"
+    },
+    {
+        "description": "Bahia - BA",
+        "value": "BA"
+    },
+    {
+        "description": "Ceará - CE",
+        "value": "CE"
+    },
+    {
+        "description": "Distrito Federal - DF",
+        "value": "DF"
+    },
+    {
+        "description": "Espírito Santo - ES",
+        "value": "ES"
+    },
+    {
+        "description": "Goiás - GO",
+        "value": "GO"
+    },
+    {
+        "description": "Maranhão - MA",
+        "value": "MA"
+    },
+    {
+        "description": "Mato Grosso - MT",
+        "value": "MT"
+    },
+    {
+        "description": "Mato Grosso do Sul - MS",
+        "value": "MS"
+    },
+    {
+        "description": "Minas Gerais - MG",
+        "value": "MG"
+    },
+    {
+        "description": "Pará - PA",
+        "value": "PA"
+    },
+    {
+        "description": "Paraíba - PB",
+        "value": "PB"
+    },
+    {
+        "description": "Paraná - PR",
+        "value": "PR"
+    },
+    {
+        "description": "Pernambuco - PE",
+        "value": "PE"
+    },
+    {
+        "description": "Piauí - PI",
+        "value": "PI"
+    },
+    {
+        "description": "Rio de Janeiro - RJ",
+        "value": "RJ"
+    },
+    {
+        "description": "Rio Grande do Norte - RN",
+        "value": "RN"
+    },
+    {
+        "description": "Rio Grande do Sul - RS",
+        "value": "RS"
+    },
+    {
+        "description": "Rondônia - RO",
+        "value": "RO"
+    },
+    {
+        "description": "Roraima - RR",
+        "value": "RR"
+    },
+    {
+        "description": "Santa Catarina - SC",
+        "value": "SC"
+    },
+    {
+        "description": "São Paulo - SP",
+        "value": "SP"
+    },
+    {
+        "description": "Sergipe - SE",
+        "value": "SE"
+    },
+    {
+        "description": "Tocantins - TO",
+        "value": "TO"
     }
 ]

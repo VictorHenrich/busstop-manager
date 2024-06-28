@@ -4,7 +4,7 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { MdAddCircle } from "react-icons/md";
 import AppTable, { AppTableBodyItemProps, AppTableItemProps } from "@/components/table";
-import { PointEntity } from "@/utils/interfaceses";
+import { PointEntity } from "@/utils/interfaces";
 import { Stack, Wrap, WrapItem } from "@chakra-ui/react";
 import { mockPoints } from "./mock";
 import AppMenuList from "@/components/menuList";
@@ -13,6 +13,9 @@ import AppInput from "@/components/input";
 import AppButton from "@/components/button";
 import PointEditionModal from "./editionModal";
 import PointExclusionModal from "./exclusionModal";
+import AppSelect from "@/components/select";
+import { STATE_ITEMS } from "@/utils/constants";
+import { getItemsOfPoints, pointsTableHeader } from "./shared";
 
 
 
@@ -25,40 +28,9 @@ function PointsPage(): React.ReactElement{
 
     const [body, setBody] = React.useState<AppTableBodyItemProps<PointEntity>[]>([]);
 
-    const header: AppTableItemProps[] = [
-        {
-            value: "Estado (UF)",
-        },
-        {
-            value: "Cidade"
-        },
-        {
-            value: "Bairro"
-        },
-        {
-            value: "Rua"
-        },
-        {
-            value: "Numero"
-        },
-        {
-            value: "Coordenadas",
-            align: "center"
-        },
-        {
-            value: "Ações",
-            align: "center"
-        }
-    ]
-
-    function getItemsOfPoints(point: PointEntity): AppTableItemProps[]{
+    function handleItemsOfPoints(point: PointEntity): AppTableItemProps[]{
         return [
-            { value: point.addressState },
-            { value: point.addressCity },
-            { value: point.addressNeighborhood },
-            { value: point.addressStreet },
-            { value: point.addressNumber },
-            { value: `(${point.latitude}, ${point.longitude})`, align: "center"},
+            ...getItemsOfPoints(point),
             { value: (
                 <AppMenuList 
                     items={[
@@ -113,8 +85,13 @@ function PointsPage(): React.ReactElement{
     React.useEffect(()=> {
         setBody(mockPoints.map(point => ({
             data: point,
-            items: getItemsOfPoints(point)
+            items: handleItemsOfPoints(point)
         })))
+    }, []);
+
+
+    const header = React.useMemo<AppTableItemProps[]>(()=> {
+        return [...pointsTableHeader, { value: "Ações", align: "center" }]
     }, []);
 
     return (
@@ -128,14 +105,15 @@ function PointsPage(): React.ReactElement{
             <AppForm>
                 <Wrap 
                     spacing={5} 
-                    justify="flex-end"
+                    justify="flex-start"
                     align="end"
                 >
                     <WrapItem>
-                        <AppInput 
-                            type="text" 
-                            label="UF" 
-                            width={150}
+                        <AppSelect
+                            items={STATE_ITEMS}
+                            name="addressState"
+                            label="UF"
+                            color="secondary"
                         />
                     </WrapItem>
                     <WrapItem>
