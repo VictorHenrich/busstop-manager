@@ -35,7 +35,7 @@ export async function refresh(): Promise<void>{
 
     const response: Response = await FetchUtils.put<any>({
         data,
-        url: AUTH_URL,
+        url: `${AUTH_URL}/refresh`,
     });
 
     const { content: { token }} = await response.json();

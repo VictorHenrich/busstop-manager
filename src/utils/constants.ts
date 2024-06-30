@@ -22,6 +22,8 @@ export const API_CONFIGS: RequestInit = {
 
 export const AUTH_URL: string = process.env.AUTH_URL || "";
 
+export const GEOLOCATION_URL: string = process.env.GEOLOCATION_URL || "";
+
 export const DASHBOARD_MENU_ITENS: AppMenuItemProps[] = [
     {
         description: "Viagens",

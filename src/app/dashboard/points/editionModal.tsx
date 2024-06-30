@@ -7,7 +7,7 @@ import AppModal, { AppModalProps } from "@/components/modal";
 import AppInput from "@/components/input";
 import AppForm from "@/components/form";
 import { PointEntity } from "@/utils/interfaces";
-import { createOrUpdatePoint, PointActionProps } from "./actions";
+import { searchLocations, SearchLocationsActionProps } from "./actions";
 import { TbWorldSearch } from "react-icons/tb";
 import AppButton from "@/components/button";
 import AppTable, { AppTableBodyItemProps } from "@/components/table";
@@ -28,7 +28,6 @@ const pointDefault: PointEntity = {
     addressNumber: "",
     latitude: "",
     longitude: "",
-    uuid: ""
 }; 
 
 export default function PointEditionModal({
@@ -36,39 +35,52 @@ export default function PointEditionModal({
     onClose,
     ...props
 }: PointEditionModalProps): React.ReactElement{
-    const [pointState, setPointState] = React.useState<PointEntity>(pointDefault);
-
     const [body, setBody] = React.useState<AppTableBodyItemProps<PointEntity>[]>([]);
 
-    const [formState, formAction ] = useFormState<PointActionProps, FormData>(createOrUpdatePoint, {
+    const [formState, formAction ] = useFormState<SearchLocationsActionProps, FormData>(searchLocations, {
         finish: false
     });
+
+    const [selectedLocation, setSelectedLocation] = React.useState<AppTableBodyItemProps<PointEntity>>();
+
+    const pointState: PointEntity = React.useMemo(()=> {
+        return !selectedPoint ? pointDefault : selectedPoint
+    }, [selectedPoint]);
+
+    const addressDescription: string = React.useMemo(()=> {
+        if(!pointState.uuid) return ""
+
+        return (
+            `${pointState.addressStreet}, ${pointState.addressNumber}, ` +
+            `${pointState.addressNeighborhood}, ${pointState.addressState}`
+        );
+
+    }, [pointState]);
 
     const buttonConfirmDescription: string = React.useMemo<string>(()=> {
         return pointState.uuid ? "Alterar" : "Cadastrar"
     }, [pointState]);
 
     React.useEffect(()=> {
-        
-        setPointState(selectedPoint || pointDefault);
-    }, [selectedPoint]);
-
-    React.useEffect(()=> {
-        if(formState.finish)
-            onClose();
-
-    }, [formState, onClose]);
-
-    function handlePointState(data: Partial<PointEntity>): void{
-        setPointState({ ...pointState, ...data });
-    }
-
-    React.useEffect(()=> {
-        setBody(mockPoints.map(point => ({
+        setBody(mockPoints.map((point, index) => ({
             data: point,
-            items: getItemsOfPoints(point)
+            items: getItemsOfPoints(point),
+            id: `locationItem${index}`
         })))
     }, []);
+
+    React.useEffect(()=> {
+        if(!props.open)
+            setSelectedLocation(undefined);
+    }, [props]);
+
+    function handleSelectItem(item: AppTableBodyItemProps<PointEntity>): void{
+        setSelectedLocation(
+            selectedLocation && selectedLocation.id === item.id
+                ? undefined
+                : item
+        )
+    }
 
     return (
         <AppModal
@@ -76,10 +88,7 @@ export default function PointEditionModal({
             onClose={onClose}
             title="Cadastro de pontos"
             buttonsProps={{
-                buttonConfirmDescription,
-                buttonConfirmProps: {
-                    type: "submit"
-                }
+                buttonConfirmDescription
             }}
         >
             <Stack
@@ -100,11 +109,11 @@ export default function PointEditionModal({
                             color="secondary"
                             _placeholder={{color: "secondary"}}
                             placeholder="Digite o CEP, estado, rua ou outras informações..."
-                            value={pointState.addressCity}
-                            onChange={({ target: { value }}) => handlePointState({addressCity: value })}
+                            value={addressDescription}
                         />
                         <AppButton 
                             width="auto"
+                            type="submit"
                             backgroundColor="blue.400"
                             color="black"
                             borderColor="blue.400"
@@ -118,15 +127,13 @@ export default function PointEditionModal({
                         >
                             Localizar coordenadas
                         </AppButton>
-                        <AppInput
-                            type="hidden"
-                            name="pointUuid"
-                            value={pointState.uuid}
-                        />
                     </Stack>
                 </AppForm>
                 <AppTable
                     body={body}
+                    isSelectable={true}
+                    selectedItem={selectedLocation}
+                    onSelectItem={handleSelectItem}
                     header={pointsTableHeader}
                 />
             </Stack>
