@@ -1,7 +1,7 @@
 'use server'
 
 import { authenticate } from "@/services/auth";
-import { LoginActionResult } from "./states";
+import type { LoginActionResult } from "./states";
 
 export default async function login(_: unknown, formData: FormData): Promise<LoginActionResult>{
     const email: string = `${formData.get("email")}`;

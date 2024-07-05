@@ -1,4 +1,4 @@
-import { PointEntity } from "@/utils/interfaces";
+import { type PointEntity } from "@/utils/interfaces";
 import FetchUtils from "@/utils/fetch";
 import { GEOLOCATION_URL } from "@/utils/constants";
 

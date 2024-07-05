@@ -1,6 +1,14 @@
 import React from "react";
 import { CiMenuKebab } from "react-icons/ci";
-import { Menu, MenuList, MenuItem, MenuButton, MenuItemProps, MenuListProps, MenuButtonProps } from "@chakra-ui/react";
+import { 
+    Menu, 
+    MenuList, 
+    MenuItem, 
+    MenuButton, 
+    type MenuItemProps, 
+    type MenuListProps, 
+    type MenuButtonProps 
+} from "@chakra-ui/react";
 
 
 export type AppMenuListItemValue = string | number | React.ReactElement;

@@ -3,8 +3,8 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { MdAddCircle } from "react-icons/md";
-import AppTable, { AppTableBodyItemProps, AppTableItemProps } from "@/components/table";
-import { PointEntity } from "@/utils/interfaces";
+import AppTable, { type AppTableBodyItemProps, type AppTableItemProps } from "@/components/table";
+import type { PointEntity } from "@/utils/interfaces";
 import { Stack, Wrap, WrapItem } from "@chakra-ui/react";
 import { mockPoints } from "./mock";
 import AppMenuList from "@/components/menuList";
@@ -28,7 +28,7 @@ function PointsPage(): React.ReactElement{
 
     const [body, setBody] = React.useState<AppTableBodyItemProps<PointEntity>[]>([]);
 
-    function handleItemsOfPoints(point: PointEntity): AppTableItemProps[]{
+    const handleItemsOfPoints = React.useCallback<(point: PointEntity)=> AppTableItemProps[]>((point: PointEntity)=> {
         return [
             ...getItemsOfPoints(point),
             { value: (
@@ -55,7 +55,8 @@ function PointsPage(): React.ReactElement{
             align: "center"
             }
         ]
-    }
+
+    }, []);
 
     function handleDeletePoint(point: PointEntity): void{
         setOpenExclusionModal(true);
@@ -87,7 +88,7 @@ function PointsPage(): React.ReactElement{
             data: point,
             items: handleItemsOfPoints(point)
         })))
-    }, []);
+    }, [handleItemsOfPoints]);
 
 
     const header = React.useMemo<AppTableItemProps[]>(()=> {

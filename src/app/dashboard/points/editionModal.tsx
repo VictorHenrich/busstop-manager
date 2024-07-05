@@ -3,14 +3,14 @@
 import React from "react";
 import { useFormState } from 'react-dom'
 import { Stack } from "@chakra-ui/react";
-import AppModal, { AppModalProps } from "@/components/modal";
+import AppModal, { type AppModalProps } from "@/components/modal";
 import AppInput from "@/components/input";
 import AppForm from "@/components/form";
 import { PointEntity } from "@/utils/interfaces";
-import { searchLocations, SearchLocationsActionProps } from "./actions";
+import { searchLocations, type SearchLocationsActionProps } from "./actions";
 import { TbWorldSearch } from "react-icons/tb";
 import AppButton from "@/components/button";
-import AppTable, { AppTableBodyItemProps } from "@/components/table";
+import AppTable, { type AppTableBodyItemProps } from "@/components/table";
 import { pointsTableHeader, getItemsOfPoints } from "./shared";
 import { mockPoints } from "./mock";
 

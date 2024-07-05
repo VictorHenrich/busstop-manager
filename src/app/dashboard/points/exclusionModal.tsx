@@ -3,11 +3,11 @@
 import React from "react";
 import { useFormState } from 'react-dom'
 import { Text } from "@chakra-ui/react";
-import AppModal, { AppModalProps } from "@/components/modal";
+import AppModal, { type AppModalProps } from "@/components/modal";
 import AppInput from "@/components/input";
 import AppForm from "@/components/form";
-import { PointEntity } from "@/utils/interfaces";
-import { deletePoint, PointActionProps } from "./actions";
+import type { PointEntity } from "@/utils/interfaces";
+import { deletePoint, type SearchLocationsActionProps } from "./actions";
 
 
 
@@ -21,7 +21,7 @@ export default function PointExclusionModal({
     onClose,
     ...props
 }: PointExclusionModalProps){
-    const [formState, formAction] = useFormState<PointActionProps, FormData>(deletePoint, { finish: false });
+    const [formState, formAction] = useFormState<SearchLocationsActionProps, FormData>(deletePoint, { finish: false });
 
     const point: Pick<PointEntity, "uuid"> = React.useMemo(()=> {
         return selectedPoint || { uuid: "" }

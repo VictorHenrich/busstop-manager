@@ -12,8 +12,8 @@ import AppLink from "@/components/link";
 import AppButton from "@/components/button";
 import AppForm from "@/components/form";
 import login from "./actions";
-import AppAlert, { AppAlertProps } from "@/components/alert";
-import { LoginActionResult, initialState } from "./states";
+import AppAlert, { type AppAlertProps } from "@/components/alert";
+import { type LoginActionResult, initialState } from "./states";
 import AppLoading from "@/components/loading";
 
 

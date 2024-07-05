@@ -13,9 +13,9 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    As
+    type As
 } from "@chakra-ui/react";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { type AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { APP_VERSION } from "@/utils/constants";
 
 

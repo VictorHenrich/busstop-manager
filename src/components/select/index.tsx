@@ -3,10 +3,9 @@ import {
     FormControl, 
     FormLabel, 
     Select,
-    Center,
     Text,
-    SelectProps,
-    FormControlProps
+    type SelectProps,
+    type FormControlProps
 } from "@chakra-ui/react";
 
 

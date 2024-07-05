@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, LinkProps } from "@chakra-ui/react";
+import { Link, type LinkProps } from "@chakra-ui/react";
 
 
 export default function AppLink(props: Partial<LinkProps> = {}): React.ReactElement{

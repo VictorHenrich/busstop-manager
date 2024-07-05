@@ -5,8 +5,8 @@ import {
     FormControl,
     FormLabel,
     InputRightElement,
-    FormControlProps,
-    InputProps,
+    type FormControlProps,
+    type InputProps,
 } from "@chakra-ui/react";
 
 

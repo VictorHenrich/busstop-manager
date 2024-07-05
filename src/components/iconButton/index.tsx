@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton, IconButtonProps } from "@chakra-ui/react";
+import { IconButton, type IconButtonProps } from "@chakra-ui/react";
 
 
 export default function AppIconButton(props: IconButtonProps): React.ReactElement{

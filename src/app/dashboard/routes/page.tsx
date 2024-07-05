@@ -4,7 +4,7 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { MdAddCircle } from "react-icons/md";
 import AppTable, { AppTableBodyItemProps, AppTableItemProps } from "@/components/table";
-import { RouteEntity } from "@/utils/interfaces";
+import type{ RouteEntity } from "@/utils/interfaces";
 import { Stack, Wrap, WrapItem } from "@chakra-ui/react";
 import AppMenuList from "@/components/menuList";
 import AppForm from "@/components/form";

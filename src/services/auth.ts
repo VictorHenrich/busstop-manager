@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 
 import { AUTH_URL, REFRESH_TOKEN_KEY_NAME, TOKEN_KEY_NAME } from "@/utils/constants";
 import FetchUtils from "@/utils/fetch";
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import { type RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
 
 interface AuthenticateProps{

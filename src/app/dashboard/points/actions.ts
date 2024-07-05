@@ -1,6 +1,6 @@
 'use server'
 
-import { PointEntity, ActionProps } from "@/utils/interfaces";
+import type { PointEntity, ActionProps } from "@/utils/interfaces";
 import { findAddress } from "@/services/geolocation";
 
 export interface SearchLocationsActionProps extends ActionProps{

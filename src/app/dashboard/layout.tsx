@@ -4,7 +4,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import { Center, Box } from "@chakra-ui/react";
 import { TiThMenu } from "react-icons/ti";
-import AppMenu, { AppMenuItemProps } from "@/components/menu";
+import AppMenu, { type AppMenuItemProps } from "@/components/menu";
 import { DASHBOARD_MENU_ITENS } from "@/utils/constants";
 import AppIconButton from "@/components/iconButton";
 

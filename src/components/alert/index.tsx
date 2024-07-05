@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Slide, AlertProps } from "@chakra-ui/react";
+import { Alert, AlertIcon, Slide, type AlertProps } from "@chakra-ui/react";
 import React from "react";
 
 

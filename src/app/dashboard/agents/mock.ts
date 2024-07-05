@@ -1,4 +1,4 @@
-import { AgentEntity } from "@/utils/interfaces";
+import type { AgentEntity } from "@/utils/interfaces";
 
 
 

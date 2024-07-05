@@ -1,6 +1,6 @@
 'use server'
 
-import { ActionProps } from "@/utils/interfaces"
+import type { ActionProps } from "@/utils/interfaces"
 
 
 

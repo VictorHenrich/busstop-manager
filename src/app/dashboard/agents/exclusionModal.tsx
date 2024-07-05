@@ -3,10 +3,10 @@
 import React from "react";
 import { useFormState } from 'react-dom'
 import { Text } from "@chakra-ui/react";
-import AppModal, { AppModalProps } from "@/components/modal";
+import AppModal, { type AppModalProps } from "@/components/modal";
 import AppInput from "@/components/input";
 import AppForm from "@/components/form";
-import { ActionProps, AgentEntity } from "@/utils/interfaces";
+import type { ActionProps, AgentEntity } from "@/utils/interfaces";
 import { deleteAgent } from "./actions";
 
 

@@ -3,8 +3,8 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { MdAddCircle } from "react-icons/md";
-import AppTable, { AppTableBodyItemProps, AppTableItemProps } from "@/components/table";
-import { AgentEntity } from "@/utils/interfaces";
+import AppTable, { type AppTableBodyItemProps, type AppTableItemProps } from "@/components/table";
+import type { AgentEntity } from "@/utils/interfaces";
 import { Stack, Wrap, WrapItem } from "@chakra-ui/react";
 import AppMenuList from "@/components/menuList";
 import AppForm from "@/components/form";
@@ -37,7 +37,7 @@ function AgentsPage(): React.ReactElement{
         }
     ]
 
-    function getItemsOfRoute(agent: AgentEntity): AppTableItemProps[]{
+    const getItemsOfRoute = React.useCallback<(agent: AgentEntity) => AppTableItemProps[]>((agent)=> {
         return [
             { value: agent.name },
             { value: agent.email },
@@ -60,14 +60,15 @@ function AgentsPage(): React.ReactElement{
             align: "center"
             }
         ]
-    }
+    }, []);
+
 
     React.useEffect(()=> {
         setBody(mockAgents.map(agent => ({
             data: agent,
             items: getItemsOfRoute(agent)
         })))
-    }, []);
+    }, [getItemsOfRoute]);
 
     function handleClickCreate(): void{
         setOpenEditionModal(true);

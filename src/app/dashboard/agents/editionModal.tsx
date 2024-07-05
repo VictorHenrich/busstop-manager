@@ -2,8 +2,8 @@
 import React from "react";
 import { useFormState } from "react-dom";
 import { Stack } from "@chakra-ui/react";
-import AppModal, { AppModalProps } from "@/components/modal";
-import { ActionProps, AgentEntity } from "@/utils/interfaces";
+import AppModal, { type AppModalProps } from "@/components/modal";
+import type { ActionProps, AgentEntity } from "@/utils/interfaces";
 import AppForm from "@/components/form";
 import AppInput from "@/components/input";
 import { createOrUpdateAgent } from "./actions";

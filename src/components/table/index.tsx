@@ -9,8 +9,8 @@ import {
     Td,
     TableCaption,
     TableContainer,
-    TableCellProps,
-    TableRowProps
+    type TableCellProps,
+    type TableRowProps
 } from '@chakra-ui/react'
 
 

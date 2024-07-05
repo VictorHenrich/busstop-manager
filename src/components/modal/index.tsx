@@ -8,11 +8,11 @@ import {
     ModalFooter, 
     ModalOverlay,
     ModalCloseButton,
-    ModalBodyProps,
-    ModalHeaderProps,
-    ModalFooterProps,
-    ModalProps,
-    ButtonProps
+    type ModalBodyProps,
+    type ModalHeaderProps,
+    type ModalFooterProps,
+    type ModalProps,
+    type ButtonProps
 } from "@chakra-ui/react";
 import AppButton from "../button";
 

@@ -1,5 +1,5 @@
-import { AppTableItemProps } from "@/components/table";
-import { PointEntity } from "@/utils/interfaces";
+import type { AppTableItemProps } from "@/components/table";
+import type { PointEntity } from "@/utils/interfaces";
 
 export const pointsTableHeader: AppTableItemProps[] = [
     {

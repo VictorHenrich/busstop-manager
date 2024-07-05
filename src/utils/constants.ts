@@ -1,8 +1,8 @@
 import { BsPersonFillGear } from "react-icons/bs";
 import { FaMapMarkerAlt, FaMapMarkedAlt  } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
-import { AppMenuItemProps } from "@/components/menu";
-import { AppSelectItemProps } from "@/components/select";
+import { type AppMenuItemProps } from "@/components/menu";
+import { type AppSelectItemProps } from "@/components/select";
 
 
 
