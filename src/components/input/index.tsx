@@ -24,7 +24,18 @@ export default function AppInput({
     ...props
 }: AppInputProps = {}): React.ReactElement{
     return (
-        <FormControl width="full" {...containerProps}>
+        <FormControl 
+            width="full"
+            colorScheme="primary"
+            borderColor="tertiary"
+            color="tertiary"
+            _focus={{
+                color: "primary",
+                _placeholder: { color: "primary"}
+            }}
+            {...containerProps}
+            
+        >
             {label && (
                 <FormLabel color="tertiary">
                     {label}
@@ -33,27 +44,25 @@ export default function AppInput({
             <InputGroup
                 width="full"
             >
-                <Input 
-                    width="full"
-                    colorScheme="primary"
-                    borderColor="tertiary"
-                    focusBorderColor="green.400"
+                <Input
+                    opacity={0.7}
+                    size="lg"
                     _placeholder={{
                         color: "tertiary"
                     }}
-                    color="tertiary"
-                    size="lg"
-                    opacity={0.7}
+                    _autofill={{ color: "primary"}}
                     _focus={{
+                        backgroundColor: "black",
                         opacity: 1,
-                        color: "primary",
-                        _placeholder: { color: "primary"}
+                        _placeholder: { color: "inherit"}
                     }}
+                    colorScheme="primary"
+                    focusBorderColor="green.400"
                     {...props}
                 />
                 {icon && (
                         <InputRightElement 
-                            color="primary"
+                            color="inherit"
                             fontSize={30}
                         >
                             {icon}

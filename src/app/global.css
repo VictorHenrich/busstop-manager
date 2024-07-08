@@ -13,6 +13,7 @@
   --size-full: "100%";
   --size-half: "50%";
   --size-quarter: "25%";
+  --soon: url('../../public/images/busstop_soon.png');
 }
 
 * {

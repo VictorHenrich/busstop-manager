@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useFormState } from 'react-dom'
-import { Center, Stack } from "@chakra-ui/react";
+import { Center, Stack, Image } from "@chakra-ui/react";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 
@@ -53,15 +53,14 @@ function LoginPage(): React.ReactElement{
                     backgroundImage="url('/images/login_background.jpg')"
                     backgroundPosition="center"
                     backgroundRepeat="no-repeat"
-                    backgroundSize="100% 100%"
-                    backgroundColor="red"
-                    filter="brightness(50%)"
+                    backgroundSize="auto 100%"
                     zIndex={10}
                 >
                 </Center>
                 <Center 
                     backgroundColor="secondary"
                     width="60%"
+                    padding={20}
                     height="full"
                 >
                     <AppForm
@@ -73,13 +72,20 @@ function LoginPage(): React.ReactElement{
                             justify="center"
                             width="full"
                             height="full"
-                            padding={20}
                             spacing={20}
+                            boxSizing="border-box"
                         >
                             <Stack 
                                 width="full"
                                 spacing={10}
+                                align="center"
                             >
+                                <Image 
+                                    src="./images/busstop_soon.png"
+                                    alt="Logo"
+                                    width={200}
+                                    height="auto"
+                                />
                                 <AppHeading
                                     fontSize={38}
                                 >
