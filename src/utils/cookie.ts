@@ -31,9 +31,27 @@ export default class CookieUtils{
         if(!request)
             cookies().set(propName, value);
     
-        else{
+        else
             request.cookies.set(propName, value);
+    }
+
+    static resetCookieData(
+        propName: string,
+        request: NextRequest | null = null
+    ): void{
+        if(!request){
+            if(cookies().has(propName))
+                cookies().delete(propName);
+
+        }else{
+            if(request.cookies.has(propName))
+                request.cookies.delete(propName);
         }
+    }
+
+    static resetAllCookieData(){
+        CookieUtils.resetCookieData(TOKEN_KEY_NAME);
+        CookieUtils.resetCookieData(REFRESH_TOKEN_KEY_NAME);
     }
 
     static setTokenData(

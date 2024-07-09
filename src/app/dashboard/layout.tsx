@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Center, Box } from "@chakra-ui/react";
 import { TiThMenu } from "react-icons/ti";
 import AppMenu, { type AppMenuItemProps } from "@/components/menu";
-import { DASHBOARD_MENU_ITENS } from "@/utils/constants";
+import { DASHBOARD_MENU_ITENS, DASHBOARD_FOOTER_MENU_ITENS } from "@/utils/constants";
 import AppIconButton from "@/components/iconButton";
 
 
@@ -28,6 +28,7 @@ export default function DashboardLayout({ children }: React.PropsWithChildren): 
         <>
             <AppMenu 
                 items={DASHBOARD_MENU_ITENS}
+                footerItems={DASHBOARD_FOOTER_MENU_ITENS}
                 selectedItem={selectedItem}
                 onClose={() => setOpenMenu(false)}
                 onSelectItem={(item) => setSelectedItem(item)}

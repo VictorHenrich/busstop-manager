@@ -13,7 +13,10 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    type As
+    type As,
+    Box,
+    Stack,
+    Icon
 } from "@chakra-ui/react";
 import { type AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { APP_VERSION } from "@/utils/constants";
@@ -26,11 +29,16 @@ export interface AppMenuItemProps{
     path?: string
 }
 
+export interface AppMenuFooterItemProps extends AppMenuItemProps{
+    children?: React.ReactElement | string | number
+}
+
 export interface AppMenuProps{
     open: boolean,
     onClose: () => void,
     onSelectItem: (item: AppMenuItemProps) => void,
     items: AppMenuItemProps[],
+    footerItems?: AppMenuFooterItemProps[],
     selectedItem?: AppMenuItemProps
 }
 
@@ -40,7 +48,8 @@ export default function AppMenu({
     onClose,
     onSelectItem,
     items,
-    selectedItem
+    selectedItem,
+    footerItems = []
 }: AppMenuProps): React.ReactElement{
     const router: AppRouterInstance = useRouter();
 
@@ -83,7 +92,7 @@ export default function AppMenu({
                                 <ListItem
                                     key={index}
                                     display="flex"
-                                    justifyContent="space-between"
+                                    justifyContent="flex-start"
                                     alignItems="center"
                                     width="full"
                                     padding={5}
@@ -95,25 +104,67 @@ export default function AppMenu({
                                     style={selected ? hoverStyle : undefined}
                                     onClick={()=> handleClickItem(item)}
                                 >
-                                    {item.description}
+                                    
                                     <ListIcon
-                                        marginLeft={5}
                                         as={item.icon}
                                         color="inherit"
                                         fontSize={25}
+                                        marginRight={5}
                                     />
+                                    {item.description}
                                 </ListItem>
                             )
                         })}
                     </List>
                 </DrawerBody>
-                <DrawerFooter 
+                <DrawerFooter
+                    borderTopWidth={1}
+                    borderTopColor="black"
+                >
+                    <List width="full">
+                        {footerItems.map((item, index) => {
+                            return (
+                                item.children 
+                                    ? item.children
+                                    : (
+                                        <ListItem
+                                            key={index}
+                                            display="flex"
+                                            justifyContent="flex-start"
+                                            alignItems="center"
+                                            width="full"
+                                            padding={5}
+                                            cursor="pointer"
+                                            transition="all 0.5s"
+                                            fontWeight={500}
+                                            fontSize={15}
+                                            _hover={hoverStyle}
+                                            onClick={()=> handleClickItem(item)}
+                                        >
+                                            
+                                            <ListIcon
+                                                as={item.icon}
+                                                color="inherit"
+                                                fontSize={25}
+                                                marginRight={5}
+                                            />
+                                            {item.description}
+                                        </ListItem>
+                                    )
+                            )
+                        })}
+                    </List>
+                </DrawerFooter>
+                <Box
+                    width="full"
+                    height={10}
+                    padding={2}
                     color="tertiary" 
                     background="black"
                     justifyContent="flex-start"
                 >
                     {APP_VERSION}
-                </DrawerFooter>
+                </Box>
             </DrawerContent>
         </Drawer>
     )

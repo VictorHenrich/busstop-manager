@@ -1,6 +1,7 @@
 import { BsPersonFillGear } from "react-icons/bs";
 import { FaMapMarkerAlt, FaMapMarkedAlt  } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
+import { IoLogOut } from "react-icons/io5";
 import { type AppMenuItemProps } from "@/components/menu";
 import { type AppSelectItemProps } from "@/components/select";
 
@@ -48,6 +49,15 @@ export const DASHBOARD_MENU_ITENS: AppMenuItemProps[] = [
         icon: FaMapMarkedAlt,
         id: "routes",
         path: "/dashboard/routes"
+    }
+]
+
+export const DASHBOARD_FOOTER_MENU_ITENS: AppMenuItemProps[] = [
+    {
+        description: "Sair",
+        icon: IoLogOut,
+        id: "logout",
+        path: "/logout"
     }
 ]
 
