@@ -2,17 +2,16 @@
 
 import { refresh } from '@/services/auth';
 import { type NextRequest, type MiddlewareConfig, NextResponse } from 'next/server';
-import { REFRESH_TOKEN_KEY_NAME } from './utils/constants';
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import CookieUtils from './utils/cookie';
 
 export async function middleware(request: NextRequest): Promise<NextResponse>{
     try{
-        const refreshToken: RequestCookie | void = request.cookies.get(REFRESH_TOKEN_KEY_NAME);
+        const refreshToken: string | void = CookieUtils.captureRefreshTokenData(request);
 
         if(!refreshToken)
             throw new Error("Unauthorized!");
 
-        await refresh(refreshToken.value);
+        await refresh(refreshToken);
 
         return NextResponse.next();
     }catch(error){

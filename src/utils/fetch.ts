@@ -5,7 +5,8 @@ export interface FetchProps<T>{
     data?: T,
     method: "POST" | "PUT" | "DELETE" | "GET" | "PATCH",
     baseUrl: string,
-    config: Partial<RequestInit>
+    config: Partial<RequestInit>,
+    authorization?: string
 }
 
 interface FetchMethodProps<T> extends Omit<FetchProps<T>, "method" | "baseUrl" | "config">{
@@ -25,14 +26,22 @@ export default class FetchUtils{
         data,
         method,
         baseUrl,
-        config
+        config,
+        authorization
     }: FetchProps<T>): Promise<Response>{
         let body: string | null = null;
+
+        const headers: HeadersInit = {
+            //...headers
+        }
+
+        if(authorization)
+            headers["Authorization"] = authorization
 
         if(data)
             body = JSON.stringify(data);
 
-        const response: Response = await fetch(`${baseUrl}${url}`, { body, method, ...config });
+        const response: Response = await fetch(`${baseUrl}${url}`, { body, method, headers, ...config });
 
         if(!response.ok)
             throw new Error(
@@ -47,53 +56,58 @@ export default class FetchUtils{
     static async post<T>({
         data,
         url,
+        authorization,
         baseUrl = BASE_URL,
         config = API_CONFIGS
     }: FetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            data, url, baseUrl, config, method: "POST"
+            data, url, baseUrl, config, authorization, method: "POST"
         });
     }
 
     static async put<T>({
         data,
         url,
+        authorization,
         baseUrl = BASE_URL,
         config = API_CONFIGS
     }: FetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            data, url, baseUrl, config, method: "PUT"
+            data, url, baseUrl, config, authorization, method: "PUT"
         });
     }
 
     static async patch<T>({
         data,
         url,
+        authorization,
         baseUrl = BASE_URL,
         config = API_CONFIGS
     }: FetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            data, url, baseUrl, config, method: "PATCH"
+            data, url, baseUrl, config, authorization, method: "PATCH"
         });
     }
 
     static async get<T>({
         url,
+        authorization,
         baseUrl = BASE_URL,
-        config = API_CONFIGS
+        config = API_CONFIGS,
     }: DisembodiedFetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            url, baseUrl, config, method: "GET"
+            url, baseUrl, config, authorization, method: "GET"
         });
     }
 
     static async delete<T>({
         url,
+        authorization,
         baseUrl = BASE_URL,
         config = API_CONFIGS
     }: DisembodiedFetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            url, baseUrl, config, method: "DELETE"
+            url, baseUrl, config, authorization, method: "DELETE"
         });
     }
 }

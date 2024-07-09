@@ -1,11 +1,8 @@
 import { AUTH_URL } from "@/utils/constants";
 import FetchUtils from "@/utils/fetch";
+import type { AgentEntity } from "@/utils/interfaces";
 
-
-interface AuthenticateProps{
-    email: string,
-    password: string
-}
+export type AuthenticateProps = Omit<AgentEntity, "name">;
 
 
 export async function authenticate(data: AuthenticateProps): Promise<{ token: string, refreshToken: string }>{
