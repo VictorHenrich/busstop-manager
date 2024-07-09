@@ -27,23 +27,21 @@ export default class FetchUtils{
         baseUrl,
         config
     }: FetchProps<T>): Promise<Response>{
-        let body: ReadableStream | null = null;
+        let body: string | null = null;
 
-        if(data){
-            const encoder: TextEncoder = new TextEncoder();
-            
-            body = new ReadableStream({
-                start(controller) {
-                    const chunk: Uint8Array = encoder.encode(JSON.stringify(data));
+        if(data)
+            body = JSON.stringify(data);
 
-                    controller.enqueue(chunk);
+        const response: Response = await fetch(`${baseUrl}${url}`, { body, method, ...config });
 
-                    controller.close();
-                },
-            });
-        }
+        if(!response.ok)
+            throw new Error(
+                `Failed to request for certain url: ${url}\n` +
+                `Status Code: ${response.status}\n` +
+                `Response Body: ${response.body}`
+            )
 
-        return await fetch(`${baseUrl}${url}`, { body, method, ...config });
+        return response;
     }
 
     static async post<T>({

@@ -1,10 +1,11 @@
 'use client'
 
 import React from "react";
-import { useFormState } from 'react-dom'
 import { Center, Stack, Image } from "@chakra-ui/react";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { useFormState } from "react-dom";
+import { redirect } from "next/navigation";
 
 import AppHeading from "@/components/heading";
 import AppInput from "@/components/input";
@@ -13,12 +14,13 @@ import AppButton from "@/components/button";
 import AppForm from "@/components/form";
 import login from "./actions";
 import AppAlert, { type AppAlertProps } from "@/components/alert";
-import { type LoginActionResult, initialState } from "./states";
+import { type ActionProps } from "@/utils/interfaces";
 import AppLoading from "@/components/loading";
 
 
+
 function LoginPage(): React.ReactElement{
-    const [state, formAction ] = useFormState<LoginActionResult, FormData>(login, initialState);
+    const [state, formAction] = useFormState<ActionProps, FormData>(login, { finish: false });
 
     const [openLoading, setOpenLoading] = React.useState<boolean>(false);
 
@@ -33,11 +35,19 @@ function LoginPage(): React.ReactElement{
     }, [alertState]);
 
     React.useEffect(()=> {
-        if(state.error)
-            handleAlertState({ open: true, message: state.message, status: "error" });
+        if(!state.finish) return
 
         setOpenLoading(false);
-    }, [state, handleAlertState]);
+        
+        if(state.errorMessage)
+            handleAlertState({ open: true, message: state.errorMessage, status: "error" });
+
+        else
+            redirect("/dashboard");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state]);
+
+    
 
     return (
         <>

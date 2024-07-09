@@ -1,21 +1,27 @@
 'use server'
-
+import { cookies } from "next/headers";
 import { authenticate } from "@/services/auth";
-import type { LoginActionResult } from "./states";
+import { type ActionProps } from "@/utils/interfaces";
+import { REFRESH_TOKEN_KEY_NAME, TOKEN_KEY_NAME } from "@/utils/constants";
 
-export default async function login(_: unknown, formData: FormData): Promise<LoginActionResult>{
+export default async function login(_: unknown, formData: FormData): Promise<ActionProps>{
     const email: string = `${formData.get("email")}`;
 
     const password: string = `${formData.get("password")}`;
 
     try{
-        await authenticate({ email, password });
+        const { token, refreshToken } = await authenticate({ email, password });
 
-        return { message: "", error: false };
+        cookies().set(REFRESH_TOKEN_KEY_NAME, refreshToken);
+
+        cookies().set(TOKEN_KEY_NAME, token);
+
+        return { finish: true };
+
     }catch(error){
         return {
-            message: "Email ou senha estão inválidos",
-            error: true
+            errorMessage: "Email ou senha estão inválidos",
+            finish: true
         }
     }
 }

@@ -13,7 +13,7 @@ export interface AppAlertProps extends AlertProps{
 export default function AppAlert({
     message,
     open,
-    seconds = 5,
+    seconds = 3,
     onClose = () => null,
     ...props
 }: AppAlertProps): React.ReactElement{

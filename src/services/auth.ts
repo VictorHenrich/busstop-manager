@@ -1,8 +1,5 @@
-import { cookies } from 'next/headers';
-
-import { AUTH_URL, REFRESH_TOKEN_KEY_NAME, TOKEN_KEY_NAME } from "@/utils/constants";
+import { AUTH_URL } from "@/utils/constants";
 import FetchUtils from "@/utils/fetch";
-import { type RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
 
 interface AuthenticateProps{
@@ -11,27 +8,23 @@ interface AuthenticateProps{
 }
 
 
-export async function authenticate(data: AuthenticateProps): Promise<void>{
+export async function authenticate(data: AuthenticateProps): Promise<{ token: string, refreshToken: string }>{
     const response: Response = await FetchUtils.post<AuthenticateProps>({
         data,
         url: AUTH_URL,
     });
 
-    const { content: { token, refreshToken }} = await response.json();
+    const { content: { token, refresh_token: refreshToken }} = await response.json();
 
-    cookies().set(TOKEN_KEY_NAME, token);
-
-    cookies().set(REFRESH_TOKEN_KEY_NAME, refreshToken);
+    return {
+        refreshToken,
+        token
+    }
 }
 
 
-export async function refresh(): Promise<void>{
-    const refreshToken: RequestCookie | void = cookies().get(REFRESH_TOKEN_KEY_NAME);
-
-    if(!refreshToken)
-        throw new Error("Unauthorized!");
-
-    const data = { refresh_token: refreshToken.value };
+export async function refresh(refreshToken: string): Promise<{ token: string }>{
+    const data = { refresh_token: refreshToken };
 
     const response: Response = await FetchUtils.put<any>({
         data,
@@ -40,5 +33,5 @@ export async function refresh(): Promise<void>{
 
     const { content: { token }} = await response.json();
 
-    cookies().set(TOKEN_KEY_NAME, token);
+    return { token }
 }

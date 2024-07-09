@@ -17,6 +17,7 @@ export default function AppLoading({
                 position="fixed"
                 top={0}
                 left={0}
+                zIndex={100}
             >
                 <Spinner
                     size="xl"

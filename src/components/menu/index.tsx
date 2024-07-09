@@ -68,6 +68,7 @@ export default function AppMenu({
                 height="100vh"
                 backgroundColor="secondary"
                 color="primary"
+                zIndex={1000}
             >
                 <DrawerCloseButton />
                 <DrawerHeader color="tertiary" backgroundColor="black">
