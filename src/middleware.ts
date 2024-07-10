@@ -11,7 +11,9 @@ export async function middleware(request: NextRequest): Promise<NextResponse>{
         if(!refreshToken)
             throw new Error("Unauthorized!");
 
-        await refresh(refreshToken);
+        const { token } = await refresh(refreshToken);
+
+        CookieUtils.setTokenData(token, request);
 
         return NextResponse.next();
     }catch(error){

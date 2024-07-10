@@ -1,12 +1,13 @@
-import { API_CONFIGS, BASE_URL } from "./constants";
+import { BASE_URL } from "./constants";
 
 export interface FetchProps<T>{
     url: string,
     data?: T,
     method: "POST" | "PUT" | "DELETE" | "GET" | "PATCH",
     baseUrl: string,
-    config: Partial<RequestInit>,
-    authorization?: string
+    config?: Partial<RequestInit>,
+    authorization?: string,
+    params?: Record<string, string>
 }
 
 interface FetchMethodProps<T> extends Omit<FetchProps<T>, "method" | "baseUrl" | "config">{
@@ -27,27 +28,40 @@ export default class FetchUtils{
         method,
         baseUrl,
         config,
-        authorization
+        authorization,
+        params
     }: FetchProps<T>): Promise<Response>{
         let body: string | null = null;
 
-        const headers: HeadersInit = {
-            //...headers
+        let finalUrl: string = url;
+
+        const headers: Record<string, string> = {
+            "Content-Type": "application/json"
         }
 
         if(authorization)
-            headers["Authorization"] = authorization
+            headers["Authorization"] = `Bearer ${authorization}`
+
+        if(params)
+            finalUrl += `?${new URLSearchParams({ ...params }).toString()}`;
 
         if(data)
             body = JSON.stringify(data);
 
-        const response: Response = await fetch(`${baseUrl}${url}`, { body, method, headers, ...config });
+        const response: Response = await fetch(`${baseUrl}${finalUrl}`, { 
+            body, 
+            method,
+            headers,
+            ...config
+        });
 
         if(!response.ok)
             throw new Error(
-                `Failed to request for certain url: ${url}\n` +
+                `Failed to request for certain url: ${finalUrl}\n` +
                 `Status Code: ${response.status}\n` +
-                `Response Body: ${response.body}`
+                `Method: ${method}` +
+                `Response Body: ${await response.text()}`+
+                `Response Headers: ${JSON.stringify(response.headers)}`
             )
 
         return response;
@@ -56,58 +70,47 @@ export default class FetchUtils{
     static async post<T>({
         data,
         url,
-        authorization,
         baseUrl = BASE_URL,
-        config = API_CONFIGS
+        ...args
     }: FetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            data, url, baseUrl, config, authorization, method: "POST"
+            data, url, baseUrl, method: "POST", ...args
         });
     }
 
     static async put<T>({
-        data,
-        url,
-        authorization,
         baseUrl = BASE_URL,
-        config = API_CONFIGS
+        ...args
     }: FetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            data, url, baseUrl, config, authorization, method: "PUT"
+            baseUrl, method: "PUT", ...args
         });
     }
 
     static async patch<T>({
-        data,
-        url,
-        authorization,
         baseUrl = BASE_URL,
-        config = API_CONFIGS
+        ...args
     }: FetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            data, url, baseUrl, config, authorization, method: "PATCH"
+            baseUrl, method: "PATCH", ...args
         });
     }
 
     static async get<T>({
-        url,
-        authorization,
         baseUrl = BASE_URL,
-        config = API_CONFIGS,
+        ...args
     }: DisembodiedFetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            url, baseUrl, config, authorization, method: "GET"
+            baseUrl, method: "GET", ...args
         });
     }
 
     static async delete<T>({
-        url,
-        authorization,
         baseUrl = BASE_URL,
-        config = API_CONFIGS
+        ...args
     }: DisembodiedFetchMethodProps<T>): Promise<Response>{
         return await FetchUtils.fetchInApp({
-            url, baseUrl, config, authorization, method: "DELETE"
+            baseUrl, method: "DELETE", ...args
         });
     }
 }

@@ -15,12 +15,6 @@ export const TOKEN_KEY_NAME: string = process.env.TOKEN_KEY_NAME || "";
 
 export const REFRESH_TOKEN_KEY_NAME: string = process.env.REFRESH_TOKEN_KEY_NAME || "";
 
-export const API_CONFIGS: RequestInit = {
-    headers: {
-        "Content-Type": "application/json"
-    }
-}
-
 export const AUTH_URL: string = process.env.AUTH_URL || "";
 
 export const GEOLOCATION_URL: string = process.env.GEOLOCATION_URL || "";

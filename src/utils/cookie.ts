@@ -49,7 +49,7 @@ export default class CookieUtils{
         }
     }
 
-    static resetAllCookieData(){
+    static resetAllCookieData(): void{
         CookieUtils.resetCookieData(TOKEN_KEY_NAME);
         CookieUtils.resetCookieData(REFRESH_TOKEN_KEY_NAME);
     }
@@ -57,24 +57,24 @@ export default class CookieUtils{
     static setTokenData(
         token: string,
         request: NextRequest | null = null
-    ){
+    ): void{
         CookieUtils.setCookieData(TOKEN_KEY_NAME, token, request);
     }
 
     static setRefreshTokenData(
         token: string,
         request: NextRequest | null = null
-    ){
+    ): void{
         CookieUtils.setCookieData(REFRESH_TOKEN_KEY_NAME, token, request);
     }
 
-    static captureTokenData(request: NextRequest | null = null){
+    static captureTokenData(request: NextRequest | null = null): string | void{
         return CookieUtils.captureCookieData(
             TOKEN_KEY_NAME, request
         )
     }
 
-    static captureRefreshTokenData(request: NextRequest | null = null){
+    static captureRefreshTokenData(request: NextRequest | null = null): string | void{
         return CookieUtils.captureCookieData(
             REFRESH_TOKEN_KEY_NAME, request
         )

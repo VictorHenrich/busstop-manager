@@ -4,8 +4,7 @@ import type { PointEntity, ActionProps } from "@/utils/interfaces";
 import { findAddress } from "@/services/geolocation";
 
 export interface SearchLocationsActionProps extends ActionProps{
-    finish: boolean,
-    errorMessage?: string
+    locations?: PointEntity[]
 }
 
 
@@ -36,8 +35,10 @@ export async function deletePoint(_: unknown, formData: FormData): Promise<Actio
 }
 
 
-export async function searchLocations(_: unknown, formData: FormData): Promise<{ locations: PointEntity[] } & ActionProps>{
-    const locations: PointEntity[] = await findAddress();
+export async function searchLocations(_: unknown, formData: FormData): Promise<SearchLocationsActionProps>{
+    const addressDescription: string = formData.get("addressDescription")?.toString() || "";
+
+    const locations: PointEntity[] = await findAddress(addressDescription);
 
     return {
         finish: true,

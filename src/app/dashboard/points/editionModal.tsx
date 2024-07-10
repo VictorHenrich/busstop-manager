@@ -2,9 +2,9 @@
 
 import React from "react";
 import { useFormState } from 'react-dom'
-import { Stack } from "@chakra-ui/react";
+import { Spinner, Stack } from "@chakra-ui/react";
 import AppModal, { type AppModalProps } from "@/components/modal";
-import AppInput from "@/components/input";
+import AppInput, { AppInputProps } from "@/components/input";
 import AppForm from "@/components/form";
 import { PointEntity } from "@/utils/interfaces";
 import { searchLocations, type SearchLocationsActionProps } from "./actions";
@@ -12,7 +12,6 @@ import { TbWorldSearch } from "react-icons/tb";
 import AppButton from "@/components/button";
 import AppTable, { type AppTableBodyItemProps } from "@/components/table";
 import { pointsTableHeader, getItemsOfPoints } from "./shared";
-import { mockPoints } from "./mock";
 
 
 
@@ -35,13 +34,26 @@ export default function PointEditionModal({
     onClose,
     ...props
 }: PointEditionModalProps): React.ReactElement{
+    const inputRef = React.useRef<AppInputProps>();
+
+    const [openLoadingSearchPoint, setOpenLoadingSearchPoint] = React.useState<boolean>(false);
+    
     const [body, setBody] = React.useState<AppTableBodyItemProps<PointEntity>[]>([]);
 
-    const [formState, formAction ] = useFormState<SearchLocationsActionProps, FormData>(searchLocations, {
+    const [searchAddressState, formAction ] = useFormState<SearchLocationsActionProps, FormData>(searchLocations, {
         finish: false
     });
 
     const [selectedLocation, setSelectedLocation] = React.useState<AppTableBodyItemProps<PointEntity>>();
+
+    const [locations, setLocations] = React.useState<PointEntity[]>([]);
+
+    const iconSearchPoint: React.ReactElement = React.useMemo<React.ReactElement>(()=> {
+        return !openLoadingSearchPoint
+            ? <TbWorldSearch fontSize={25}/>
+            : <Spinner color="inherit"/>
+
+    }, [openLoadingSearchPoint]);
 
     const pointState: PointEntity = React.useMemo(()=> {
         return !selectedPoint ? pointDefault : selectedPoint
@@ -62,17 +74,33 @@ export default function PointEditionModal({
     }, [pointState]);
 
     React.useEffect(()=> {
-        setBody(mockPoints.map((point, index) => ({
+        setBody(locations.map((point, index) => ({
             data: point,
             items: getItemsOfPoints(point),
             id: `locationItem${index}`
         })))
-    }, []);
+    }, [locations]);
 
     React.useEffect(()=> {
-        if(!props.open)
+        if(!props.open){
+            setLocations([]);
             setSelectedLocation(undefined);
-    }, [props]);
+        }
+
+        if(props.open && selectedPoint)
+            setTimeout(()=> {
+                if(!inputRef.current) return;
+
+                inputRef.current.value = addressDescription;
+            })
+    }, [props, addressDescription, selectedPoint]);
+
+    React.useEffect(()=> {
+        if(searchAddressState.locations)
+            setLocations(searchAddressState.locations);
+
+        setOpenLoadingSearchPoint(false);
+    }, [searchAddressState]);
 
     function handleSelectItem(item: AppTableBodyItemProps<PointEntity>): void{
         setSelectedLocation(
@@ -104,12 +132,14 @@ export default function PointEditionModal({
                         <AppInput
                             variant="filled"
                             type="text"
-                            name="addressCity"
+                            name="addressDescription"
                             label="Endereço"
                             color="secondary"
                             _placeholder={{color: "secondary"}}
+                            _focus={{
+                                color: "primary"
+                            }}
                             placeholder="Digite o CEP, estado, rua ou outras informações..."
-                            value={addressDescription}
                         />
                         <AppButton 
                             width="auto"
@@ -119,11 +149,12 @@ export default function PointEditionModal({
                             borderColor="blue.400"
                             borderWidth={1}
                             fontSize={18}
-                            rightIcon={<TbWorldSearch fontSize={25}/>}
+                            rightIcon={iconSearchPoint}
                             _hover={{
                                 backgroundColor: "black",
                                 color: "blue.400"
                             }}
+                            onClick={()=> setOpenLoadingSearchPoint(true)}
                         >
                             Localizar coordenadas
                         </AppButton>
