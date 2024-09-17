@@ -5,22 +5,31 @@ export interface ModelEntity{
 }
 
 
-export interface PointEntity extends ModelEntity{
+export interface LocationEntity{
+    latitude: number | string,
+    longitude: number | string,
+}
+
+export interface PointEntity extends ModelEntity, LocationEntity{
     addressState: string,
     addressCity: string,
     addressNeighborhood: string,
     addressStreet: string,
     addressNumber: string,
-    latitude: string,
-    longitude: string
+    placeId?: string
 }
 
 
-export interface RouteEntity{
+export interface RouteEntity extends ModelEntity{
     description: string,
     openingTime: Date,
     closingTime: Date,
     ticketPrice: number
+}
+
+export interface VehicleEntity extends ModelEntity{
+    plate: string,
+    type: "bus" | "car" | "motorcycle"
 }
 
 

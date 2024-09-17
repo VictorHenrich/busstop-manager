@@ -2,12 +2,15 @@ import { BsPersonFillGear } from "react-icons/bs";
 import { FaMapMarkerAlt, FaMapMarkedAlt  } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
 import { IoLogOut } from "react-icons/io5";
+import { FaBusAlt } from "react-icons/fa";
 import { type AppMenuItemProps } from "@/components/menu";
 import { type AppSelectItemProps } from "@/components/select";
 
 
 
 export const BASE_URL: string = process.env.BASE_URL || "";
+
+export const SOCKET_BASE_URL: string = process.env.NEXT_PUBLIC_SOCKET_BASE_URL || "";
 
 export const APP_VERSION: string = process.env.NEXT_PUBLIC_APP_VERSION || "";
 
@@ -25,6 +28,12 @@ export const DASHBOARD_MENU_ITENS: AppMenuItemProps[] = [
         icon: SiGoogleanalytics,
         id: "travel",
         path: "/dashboard/travel"
+    },
+    {
+        description: "Veículos",
+        icon: FaBusAlt,
+        id: "vehicle",
+        path: "/dashboard/vehicle"
     },
     {
         description: "Agentes",

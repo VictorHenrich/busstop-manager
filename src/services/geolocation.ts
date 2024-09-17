@@ -25,6 +25,7 @@ export async function findAddress(addressDescription: string): Promise<PointEnti
         addressStreet: point.address_street,
         addressNumber: point.address_number,
         latitude: point.latitude,
-        longitude: point.longitude
+        longitude: point.longitude,
+        placeId: point.place_id
     }));
 }
